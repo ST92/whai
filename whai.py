@@ -123,7 +123,6 @@ def alias_main():
     print(response_text)
 
 
-
 def install_main():
     self_path = sys.argv[0]
 
@@ -133,13 +132,31 @@ def install_main():
     os.makedirs(install_path)
 
     interrogatives = "what which when where who whom whose why whether how".split()
-    others = "explain tell say is was were will would whether can could assuming given".split()
+    others = "explain tell say is was were will would whether may can could assuming given show create write make".split()
     
     for prompting_word in [*interrogatives, *others]:
         executable_word = ","+prompting_word.capitalize()
-        os.link(self_path, os.path.join(install_path, executable_word))
+        
+        where = os.path.join(install_path, executable_word)
+        if not os.path.exists(where):
+            os.link(self_path, where)
 
 
+def uninstall_main():
+    self_path = sys.argv[0]
+    self_stat = os.stat(self_path)
+
+    install_path = "~/.local/bin"
+    install_path = os.path.expanduser(install_path)
+
+    for file_name in os.listdir(install_path):
+        file_path = os.path.join(install_path, file_name)
+
+        if self_path == file_path: continue
+
+        file_stat = os.stat(file_path)
+        if os.path.samestat(self_stat, file_stat):
+            os.unlink(file_path)
 
 
 if __name__ == "__main__":
@@ -147,6 +164,8 @@ if __name__ == "__main__":
         alias_main()
     elif " ".join(sys.argv[1:]).lower() == "install":
         install_main()
+    elif " ".join(sys.argv[1:]).lower() == "uninstall":
+        uninstall_main()
     else:
         script_main()
     
