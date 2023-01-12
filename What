@@ -175,15 +175,20 @@ def install_main():
 
     os.makedirs(install_path, exist_ok=True)
     
+    print("Created links to self:")
+    successfully_installed = []
     for prompting_word in INSTALL_WORDS:
         executable_word = FILENAME_TRANSFORM(prompting_word)
         
         where = os.path.join(install_path, executable_word)
         if not os.path.exists(where):
             os.link(self_path, where)
+            successfully_installed.append(executable_word)
+    
+    print("\n".join(successfully_installed))
 
     path_dirs = os.get_exec_path()
-    
+
     if install_path in path_dirs or INSTALL_PATH in path_dirs:
         return
     else:
@@ -197,15 +202,19 @@ def uninstall_main():
 
     install_path = os.path.expanduser(INSTALL_PATH)
 
+    print("Removed links to self:")
+    removed = []
     for file_name in os.listdir(install_path):
         file_path = os.path.join(install_path, file_name)
 
         if self_path == file_path: continue
 
-        file_stat = os.stat(file_path)
+        file_stat = os.stat(file_path, follow_symlinks=False)
         if os.path.samestat(self_stat, file_stat):
             os.unlink(file_path)
+            removed.append(file_name)
 
+    print("\n".join(removed))
 
 
 def is_run_as_alias():

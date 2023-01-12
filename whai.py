@@ -185,7 +185,7 @@ def install_main():
             os.link(self_path, where)
             successfully_installed.append(executable_word)
     
-    print(", ".join(successfully_installed))
+    print("\n".join(successfully_installed))
 
     path_dirs = os.get_exec_path()
 
@@ -214,7 +214,7 @@ def uninstall_main():
             os.unlink(file_path)
             removed.append(file_name)
 
-    print(", ".join(removed))
+    print("\n".join(removed))
 
 
 def is_run_as_alias():
