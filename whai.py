@@ -123,9 +123,30 @@ def alias_main():
     print(response_text)
 
 
+
+def install_main():
+    self_path = sys.argv[0]
+
+    install_path = "~/.local/bin"
+    install_path = os.path.expanduser(install_path)
+
+    os.makedirs(install_path)
+
+    interrogatives = "what which when where who whom whose why whether how".split()
+    others = "explain tell say is was were will would whether can could assuming given".split()
+    
+    for prompting_word in [*interrogatives, *others]:
+        executable_word = ","+prompting_word.capitalize()
+        os.link(self_path, os.path.join(install_path, executable_word))
+
+
+
+
 if __name__ == "__main__":
     if is_run_as_alias():
         alias_main()
+    elif " ".join(sys.argv[1:]).lower() == "install":
+        install_main()
     else:
         script_main()
-
+    
