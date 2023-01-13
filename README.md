@@ -1,10 +1,12 @@
 # ⛭ WhAI
 
- Author: Supersonic Tumbleweed
- Created: 12 Jan 2023
- License: MIT
+ - Author: Supersonic Tumbleweed
+ - Created: 12 Jan 2023
+ - License: MIT
 
- Repository: https://github.com/ST92/whai
+### Repository
+ 
+ - https://github.com/ST92/whai
 
 ## Requirements
 
@@ -30,10 +32,10 @@
 
     $ ,What year marks the start of industrial revolution??
  
-    <... answer... >
+    <... answer to "What year marks the start of industrial revolution??" >
      $ ,Who was the first black president of United States?
     
-    <... answer... >
+    <... answer to "Who was the first black president of United States?" >
 
  in your bash compatible shell, as long as `OPENAI_API_KEY` is conigured in your environment.
 
