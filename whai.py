@@ -135,6 +135,9 @@ def guess_prompt_maxtokens(prompt):
 
 def alias_main():
     prog_name = os.path.basename(sys.argv[0])
+    prog_word_start = list(map(str.isalnum, prog_name)).index(True)
+    prog_word = prog_name[prog_word_start:].capitalize().strip()
+
     prompt = prog_name+" "+" ".join(sys.argv[1:])+"\n\n"
 
     #TODO: insert stdin and fds redirected to us into prompt
